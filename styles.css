@@ -1,0 +1,295 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f1ec;
+  --ink: #161816;
+  --muted: #74766f;
+  --line: #ddd7cc;
+  --panel: #fffdf8;
+  --accent: #137267;
+  --accent-dark: #0d5049;
+  --done: #dfe3dc;
+  --warn: #c95f44;
+  --shadow: 0 18px 44px rgba(31, 28, 22, 0.11);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+.top,
+.next-panel,
+.progress-panel,
+.finish-panel,
+.exercise {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(3rem, 12vw, 5.2rem);
+  line-height: 0.95;
+}
+
+h2 {
+  font-size: 1.55rem;
+}
+
+h3 {
+  font-size: 1.12rem;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.next-panel {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.next-text {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.progress-panel {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.progress-copy {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.progress-copy strong {
+  color: var(--accent-dark);
+}
+
+.progress-track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e6e1d7;
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 180ms ease;
+}
+
+.exercise-list {
+  display: grid;
+  gap: 12px;
+}
+
+.exercise {
+  padding: 16px;
+  transition: opacity 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.exercise.done {
+  background: var(--done);
+  opacity: 0.62;
+}
+
+.exercise-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.exercise-main p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-weight: 680;
+}
+
+.exercise-main span {
+  min-width: 58px;
+  text-align: right;
+  color: var(--accent-dark);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.set-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin: 16px 0 12px;
+}
+
+.set-dot {
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.set-dot.checked {
+  border-color: rgba(19, 114, 103, 0.35);
+  background: var(--accent);
+  color: white;
+}
+
+.set-button,
+.finish-button {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ink);
+  color: white;
+  font-weight: 900;
+}
+
+.set-button:disabled {
+  background: #9ca197;
+}
+
+.finish-panel {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.finish-panel label {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: white;
+  color: var(--ink);
+  outline: none;
+}
+
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(19, 114, 103, 0.12);
+}
+
+.finish-button {
+  background: var(--accent);
+}
+
+.finish-button:disabled {
+  cursor: not-allowed;
+  background: #b7b9b1;
+}
+
+.hint {
+  min-height: 22px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .app {
+    padding: 12px 10px 28px;
+  }
+
+  .top,
+  .next-panel,
+  .progress-panel,
+  .finish-panel,
+  .exercise {
+    box-shadow: 0 8px 24px rgba(31, 28, 22, 0.09);
+  }
+
+  .next-panel {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .progress-copy {
+    display: grid;
+  }
+
+  .set-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

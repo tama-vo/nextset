@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NextSet</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="top">
+        <div>
+          <p class="eyebrow">NextSet</p>
+          <h1 id="todayName">Push</h1>
+        </div>
+        <button id="resetButton" class="icon-button" type="button" title="リセット" aria-label="リセット">↺</button>
+      </header>
+
+      <section class="next-panel" aria-label="次の予定">
+        <div>
+          <p class="eyebrow">次はこれ</p>
+          <h2 id="nextWorkout">Pull</h2>
+        </div>
+        <p id="nextTiming" class="next-text">今日のPushが終わったら、次回はPull。</p>
+      </section>
+
+      <section class="progress-panel" aria-label="今日の進捗">
+        <div class="progress-copy">
+          <span id="progressCount">0 / 0 sets</span>
+          <strong id="progressStatus">1セットずつ終わらせよう</strong>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <section id="exerciseList" class="exercise-list" aria-label="今日の種目"></section>
+
+      <section class="finish-panel" aria-label="ワークアウト完了">
+        <label for="sessionComment">一言コメント</label>
+        <textarea id="sessionComment" rows="3" placeholder="例: ベンチ重かった。次回は1セット目だけ+2.5kg"></textarea>
+        <button id="finishButton" class="finish-button" type="button" disabled>今日のメニュー完了</button>
+        <p id="finishHint" class="hint">全セット終わると押せます。</p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
