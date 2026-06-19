@@ -2,47 +2,135 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f1ec" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="NextSet" />
     <title>NextSet</title>
+    <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app">
-      <header class="top">
-        <div>
-          <p class="eyebrow">NextSet</p>
-          <h1 id="todayName">Push</h1>
-        </div>
-        <button id="resetButton" class="icon-button" type="button" title="リセット" aria-label="リセット">↺</button>
-      </header>
+    <main class="phone-shell">
+      <section class="screen active" id="screen-today" aria-label="今日">
+        <header class="app-header">
+          <div>
+            <p class="eyebrow">NextSet</p>
+            <h1 id="todayName">Push</h1>
+          </div>
+          <button id="resetButton" class="icon-button" type="button" aria-label="リセット">↺</button>
+        </header>
 
-      <section class="next-panel" aria-label="次の予定">
-        <div>
-          <p class="eyebrow">次はこれ</p>
-          <h2 id="nextWorkout">Pull</h2>
-        </div>
-        <p id="nextTiming" class="next-text">今日のPushが終わったら、次回はPull。</p>
+        <article class="next-card">
+          <div>
+            <p class="eyebrow">次はこれ</p>
+            <h2 id="nextWorkout">Pull</h2>
+          </div>
+          <p id="nextTiming">今日のPushが終わったら、次回はPull。</p>
+        </article>
+
+        <article class="progress-card">
+          <div class="progress-line">
+            <span id="progressCount">0 / 0 sets</span>
+            <strong id="progressStatus">1セットずつ終わらせよう</strong>
+          </div>
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </article>
+
+        <section id="exerciseList" class="exercise-list" aria-label="今日の種目"></section>
+
+        <article class="finish-card">
+          <label for="sessionComment">一言コメント</label>
+          <textarea id="sessionComment" rows="3" placeholder="例: ベンチ重かった。次回は1セット目だけ+2.5kg"></textarea>
+          <button id="finishButton" class="finish-button" type="button" disabled>今日のメニュー完了</button>
+          <p id="finishHint" class="hint">全セット終わると押せます。</p>
+        </article>
       </section>
 
-      <section class="progress-panel" aria-label="今日の進捗">
-        <div class="progress-copy">
-          <span id="progressCount">0 / 0 sets</span>
-          <strong id="progressStatus">1セットずつ終わらせよう</strong>
-        </div>
-        <div class="progress-track">
-          <div id="progressFill" class="progress-fill"></div>
-        </div>
+      <section class="screen" id="screen-calendar" aria-label="カレンダー">
+        <header class="app-header compact">
+          <div>
+            <p class="eyebrow">History</p>
+            <h1>Calendar</h1>
+          </div>
+        </header>
+
+        <article class="calendar-card">
+          <div class="calendar-head">
+            <button id="prevMonth" class="icon-button" type="button" aria-label="前の月">‹</button>
+            <h2 id="calendarTitle">2026年6月</h2>
+            <button id="nextMonth" class="icon-button" type="button" aria-label="次の月">›</button>
+          </div>
+          <div class="weekday-grid" aria-hidden="true">
+            <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+        </article>
+
+        <article class="detail-card">
+          <p class="eyebrow">選択した日</p>
+          <div id="selectedLogs" class="selected-logs"></div>
+        </article>
       </section>
 
-      <section id="exerciseList" class="exercise-list" aria-label="今日の種目"></section>
+      <section class="screen" id="screen-menu" aria-label="メニュー編集">
+        <header class="app-header compact">
+          <div>
+            <p class="eyebrow">Your Split</p>
+            <h1>Menu</h1>
+          </div>
+          <button id="addDayButton" class="icon-button" type="button" aria-label="分割日を追加">＋</button>
+        </header>
 
-      <section class="finish-panel" aria-label="ワークアウト完了">
-        <label for="sessionComment">一言コメント</label>
-        <textarea id="sessionComment" rows="3" placeholder="例: ベンチ重かった。次回は1セット目だけ+2.5kg"></textarea>
-        <button id="finishButton" class="finish-button" type="button" disabled>今日のメニュー完了</button>
-        <p id="finishHint" class="hint">全セット終わると押せます。</p>
+        <div id="dayTabs" class="day-tabs" aria-label="分割メニュー"></div>
+        <section id="menuExercises" class="menu-list" aria-label="登録種目"></section>
+        <button id="addExerciseButton" class="finish-button sticky-action" type="button">種目を追加</button>
       </section>
     </main>
+
+    <nav class="tabbar" aria-label="メインナビゲーション">
+      <button class="tab active" data-tab="today" type="button">
+        <span>●</span>
+        Today
+      </button>
+      <button class="tab" data-tab="calendar" type="button">
+        <span>▦</span>
+        Calendar
+      </button>
+      <button class="tab" data-tab="menu" type="button">
+        <span>☰</span>
+        Menu
+      </button>
+    </nav>
+
+    <dialog id="exerciseDialog">
+      <form id="exerciseForm" class="dialog-card" method="dialog">
+        <div class="dialog-head">
+          <div>
+            <p class="eyebrow">Exercise</p>
+            <h2 id="dialogTitle">種目を追加</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="submit" aria-label="閉じる">×</button>
+        </div>
+        <input id="editingExerciseId" type="hidden" />
+        <label for="exerciseName">種目名</label>
+        <input id="exerciseName" required placeholder="ベンチプレス" />
+        <div class="form-grid">
+          <div>
+            <label for="exerciseSets">セット数</label>
+            <input id="exerciseSets" type="number" min="1" max="10" value="3" />
+          </div>
+          <div>
+            <label for="exerciseReps">回数</label>
+            <input id="exerciseReps" placeholder="8-10" />
+          </div>
+        </div>
+        <button class="finish-button" value="save" type="submit">保存</button>
+      </form>
+    </dialog>
 
     <script src="app.js"></script>
   </body>
